@@ -1,0 +1,13 @@
+faiss-cpu 
+sentence-transformers 
+torch 
+rank_bm25 
+rapidfuzz 
+langgraph 
+langchain-core 
+fastapi 
+uvicorn 
+pydantic 
+pytest
+httpx
+pyyaml

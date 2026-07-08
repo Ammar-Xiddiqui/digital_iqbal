@@ -1,0 +1,26 @@
+# Python & Environment
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Data & Indexes (Prevents pushing massive files to GitHub)
+data/raw/
+data/processed/*.bin
+data/processed/*.jsonl
+data/processed/*.json
+!data/processed/.gitkeep
+!data/raw/.gitkeep
+
+# Machine Learning & Caches
+.cache/
+huggingface/
+*.pt
+*.pth
+
+# IDE & OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
