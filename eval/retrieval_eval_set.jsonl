@@ -28,3 +28,13 @@
 {"query": "اے ارض پاک! تيري حرمت پہ کٹ مرے ہم", "expected_verse_id": "001_102_009"}
 {"query": "aakhir shab deed ke qabil thi bismil ki tarap", "expected_verse_id": "001_117_022"}
 {"query": "sage of rum chanted the sura of taha", "expected_verse_id": "009_030_022"}
+{"query": "ae hamala fasel kishwar", "expected_verse_id": "001_001_001"}
+{"query": "tu jawan hai gardhish sham saher", "expected_verse_id": "001_001_002"}
+{"query": "imthian dida zahir mein kohistan", "expected_verse_id": "001_001_004"}
+{"query": "chotiyan suraya se sargaram", "expected_verse_id": "001_001_008"}
+{"query": "laila shab zulf rasa", "expected_verse_id": "001_001_019"}
+{"query": "khudi ko kar buland itna", "expected_verse_id": "002_018_007"}
+{"query": "sitaron se agay jahan aur", "expected_verse_id": "002_023_001"}
+{"query": "iqbal bara updeshak hai", "expected_verse_id": "001_130_006"}
+{"query": "hazaron saal nargis apni be noori", "expected_verse_id": "001_170_006"}
+{"query": "amal se zindagi banti hai jannat", "expected_verse_id": "002_137_036"}
