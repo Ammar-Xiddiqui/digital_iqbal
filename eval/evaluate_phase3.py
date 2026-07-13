@@ -11,7 +11,7 @@ def evaluate_hybrid():
         for line in f:
             eval_data.append(json.loads(line))
             
-    # The last 10 items are the misspelled/partial subset we just added
+    # Split the evaluation set: first 30 are standard, last 10 are the typos
     standard_subset = eval_data[:-10]
     misspelled_subset = eval_data[-10:]
     
@@ -46,7 +46,7 @@ def evaluate_hybrid():
     print(f" Average Latency:             {(standard_lat + misspelled_lat)/2:.2f} ms")
     print("="*50)
     
-    if misspelled_recall >= 70.0: # Targeting a clear margin over standard dense
+    if misspelled_recall >= 70.0:
         print("\nGATE STATUS: PASS")
         print("Hybrid beats dense-only by a clear margin on typos. Ready for Phase 4.")
     else:

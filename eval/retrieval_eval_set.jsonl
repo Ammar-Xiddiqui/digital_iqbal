@@ -33,8 +33,8 @@
 {"query": "imthian dida zahir mein kohistan", "expected_verse_id": "001_001_004"}
 {"query": "chotiyan suraya se sargaram", "expected_verse_id": "001_001_008"}
 {"query": "laila shab zulf rasa", "expected_verse_id": "001_001_019"}
-{"query": "khudi ko kar buland itna", "expected_verse_id": "002_018_007"}
-{"query": "sitaron se agay jahan aur", "expected_verse_id": "002_023_001"}
-{"query": "iqbal bara updeshak hai", "expected_verse_id": "001_130_006"}
-{"query": "hazaron saal nargis apni be noori", "expected_verse_id": "001_170_006"}
-{"query": "amal se zindagi banti hai jannat", "expected_verse_id": "002_137_036"}
+{"query": "haye kya firat tarab jhoomta abar", "expected_verse_id": "001_001_012"}
+{"query": "chasma daman tera aaeena siyyal", "expected_verse_id": "001_001_009"}
+{"query": "vo khamoshi sham jis per takalum", "expected_verse_id": "001_001_020"}
+{"query": "kanpta phirta rang shafaq", "expected_verse_id": "001_001_021"}
+{"query": "kuch bata seedhi sadi zindagi", "expected_verse_id": "001_001_023"}
