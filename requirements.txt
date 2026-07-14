@@ -11,3 +11,7 @@ pydantic
 pytest
 httpx
 pyyaml
+fastapi 
+uvicorn
+transformers
+tqdm 

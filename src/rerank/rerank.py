@@ -11,46 +11,32 @@ class CrossEncoderReranker:
         self.tokenizer = AutoTokenizer.from_pretrained(MODEL_DIR)
         self.model = AutoModelForSequenceClassification.from_pretrained(MODEL_DIR)
         self.model.to(self.device)
-        self.model.eval() # Set to evaluation mode
+        self.model.eval()
 
     def rerank(self, query: str, hybrid_results: list, top_k: int = 5):
-        """
-        Takes a list of dictionary results from the Hybrid Retriever and reranks them.
-        """
         if not hybrid_results:
             return []
 
-        # Prepare pairs for the Cross-Encoder: (Query, Text)
-        pairs = []
-        for res in hybrid_results:
-            # We compare against the original text as that is what the model was trained on
-            pairs.append((query, res['text']))
+        # FIX: Separate lists for queries and texts so BERT generates token_type_ids properly
+        queries = [query] * len(hybrid_results)
+        texts = [res['text'] for res in hybrid_results]
 
-        # Tokenize all pairs in a single batch for speed
         encoded = self.tokenizer(
-            pairs,
+            queries,
+            texts,
             padding=True,
             truncation=True,
             max_length=128,
             return_tensors='pt'
         ).to(self.device)
 
-        # Run inference
         with torch.no_grad():
             outputs = self.model(**encoded)
-            # Squeeze to get a 1D array of scores
             scores = outputs.logits.squeeze(-1).cpu().numpy()
 
-        # Inject the new cross-encoder scores into the results
         for i, res in enumerate(hybrid_results):
-            res['cross_encoder_score'] = float(scores[i])
+            # Fallback for single-item batches where numpy returns a scalar
+            res['cross_encoder_score'] = float(scores[i] if scores.ndim > 0 else scores)
 
-        # Sort by the new score descending
         reranked_results = sorted(hybrid_results, key=lambda x: x['cross_encoder_score'], reverse=True)
-        
         return reranked_results[:top_k]
-
-# Quick sanity check block
-if __name__ == "__main__":
-    reranker = CrossEncoderReranker()
-    print("Reranker loaded successfully and ready for inference!")

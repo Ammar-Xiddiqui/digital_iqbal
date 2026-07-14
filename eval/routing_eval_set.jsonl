@@ -1,0 +1,60 @@
+{"query": "khudi ko kar buland", "expected_route": "literal_lookup"}
+{"query": "sitaron se aage jahan aur bhi hain", "expected_route": "literal_lookup"}
+{"query": "ہزاروں سال نرگس اپنی بے نوری پہ روتی ہے", "expected_route": "literal_lookup"}
+{"query": "عالم نو ہے ابھي پردہ تقدير ميں", "expected_route": "literal_lookup"}
+{"query": "tu jawan hai gardhish sham saher", "expected_route": "literal_lookup"}
+{"query": "imthian dida zahir mein kohistan", "expected_route": "literal_lookup"}
+{"query": "chotiyan suraya se sargaram", "expected_route": "literal_lookup"}
+{"query": "laila shab zulf rasa", "expected_route": "literal_lookup"}
+{"query": "haye kya firat tarab jhoomta abar", "expected_route": "literal_lookup"}
+{"query": "chasma daman tera aaeena siyyal", "expected_route": "literal_lookup"}
+{"query": "vo khamoshi sham jis per takalum", "expected_route": "literal_lookup"}
+{"query": "kanpta phirta rang shafaq", "expected_route": "literal_lookup"}
+{"query": "kuch bata seedhi sadi zindagi", "expected_route": "literal_lookup"}
+{"query": "His glance would fill up the empty bowl", "expected_route": "literal_lookup"}
+{"query": "شمشير کي مانند ہے برندہ و براق", "expected_route": "literal_lookup"}
+{"query": "learnt the Faqr's path from fore-father", "expected_route": "literal_lookup"}
+{"query": "ya meri aah mein koi sharar zinda nahin", "expected_route": "literal_lookup"}
+{"query": "render athirst that I may offer wine", "expected_route": "literal_lookup"}
+{"query": "Husain Ahmad of Deoband", "expected_route": "literal_lookup"}
+{"query": "aan maqamash bartar az charkh", "expected_route": "literal_lookup"}
+{"query": "poem about the falcon", "expected_route": "thematic_search"}
+{"query": "verses on the concept of khudi", "expected_route": "thematic_search"}
+{"query": "iqbal philosophy of ego", "expected_route": "thematic_search"}
+{"query": "what is the message of shikwa", "expected_route": "thematic_search"}
+{"query": "verses about youth and revolution", "expected_route": "thematic_search"}
+{"query": "theme of self reliance", "expected_route": "thematic_search"}
+{"query": "concept of mard e momin", "expected_route": "thematic_search"}
+{"query": "poem on the himalayas", "expected_route": "thematic_search"}
+{"query": "verses about the eagle", "expected_route": "thematic_search"}
+{"query": "theme of love and intellect", "expected_route": "thematic_search"}
+{"query": "about the decline of muslims", "expected_route": "thematic_search"}
+{"query": "message to the youth of islam", "expected_route": "thematic_search"}
+{"query": "verses on destiny and fate", "expected_route": "thematic_search"}
+{"query": "poem about cordoba mosque", "expected_route": "thematic_search"}
+{"query": "theme of action over words", "expected_route": "thematic_search"}
+{"query": "concept of shaheen", "expected_route": "thematic_search"}
+{"query": "verses on freedom", "expected_route": "thematic_search"}
+{"query": "philosophy of time and space", "expected_route": "thematic_search"}
+{"query": "about western civilization", "expected_route": "thematic_search"}
+{"query": "theme of spiritual awakening", "expected_route": "thematic_search"}
+{"query": "explain khudi ko kar buland", "expected_route": "translate_explain"}
+{"query": "what does sitaron se aage mean", "expected_route": "translate_explain"}
+{"query": "tarjuma of shikwa", "expected_route": "translate_explain"}
+{"query": "tashreeh of lab pe aati hai dua", "expected_route": "translate_explain"}
+{"query": "meaning of mard e momin", "expected_route": "translate_explain"}
+{"query": "translation of asrar e khudi", "expected_route": "translate_explain"}
+{"query": "explain the verse about the falcon", "expected_route": "translate_explain"}
+{"query": "what does iqbal mean by shaheen", "expected_route": "translate_explain"}
+{"query": "tashreeh of bang e dra", "expected_route": "translate_explain"}
+{"query": "meaning of faqr", "expected_route": "translate_explain"}
+{"query": "translate this couplet", "expected_route": "translate_explain"}
+{"query": "explain the concept of ego", "expected_route": "translate_explain"}
+{"query": "what is the meaning of zarb e kalim", "expected_route": "translate_explain"}
+{"query": "tarjuma of persian verse", "expected_route": "translate_explain"}
+{"query": "tashreeh of bal e jibril", "expected_route": "translate_explain"}
+{"query": "meaning of ishq in iqbal poetry", "expected_route": "translate_explain"}
+{"query": "explain the philosophy of action", "expected_route": "translate_explain"}
+{"query": "translation of shikwa jawab e shikwa", "expected_route": "translate_explain"}
+{"query": "what does aql mean here", "expected_route": "translate_explain"}
+{"query": "tashreeh of masjid e qurtaba", "expected_route": "translate_explain"}
