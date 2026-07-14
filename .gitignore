@@ -24,3 +24,4 @@ huggingface/
 .idea/
 .DS_Store
 Thumbs.db
+reranker_model/
