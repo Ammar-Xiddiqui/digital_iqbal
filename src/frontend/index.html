@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Iqbal Copilot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#10b981', // Emerald green
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen font-sans antialiased p-6">
+
+    <div class="max-w-4xl mx-auto space-y-8">
+        <!-- Header -->
+        <div class="text-center space-y-2 mt-10">
+            <h1 class="text-4xl font-extrabold tracking-tight text-white">Digital <span class="text-brand">Iqbal</span></h1>
+            <p class="text-gray-400">Local CPU-Optimized RAG Search & Generation</p>
+        </div>
+
+        <!-- Search Box -->
+        <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+            <form id="searchForm" class="flex flex-col gap-4">
+                <input type="text" id="queryInput" required placeholder="Ask about a verse, theme, or meaning (e.g., sitaron se aage...)" 
+                    class="w-full bg-gray-900 text-white border border-gray-600 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all">
+                
+                <button type="submit" id="submitBtn" 
+                    class="w-full bg-brand hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-lg transition-colors flex justify-center items-center gap-2">
+                    <span>Ask Pipeline</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="hidden text-center space-y-4 py-8">
+            <div class="animate-spin inline-block w-10 h-10 border-4 border-brand border-t-transparent rounded-full" role="status"></div>
+            <p class="text-brand animate-pulse font-medium">Executing local CPU inference. This may take up to 60 seconds...</p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsContainer" class="hidden space-y-6">
+            
+            <!-- Metadata & Answer -->
+            <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 space-y-4">
+                <div class="flex flex-wrap gap-3 mb-4">
+                    <span id="intentBadge" class="bg-indigo-900 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full border border-indigo-700"></span>
+                    <span id="latencyBadge" class="bg-gray-700 text-gray-300 text-xs font-semibold px-3 py-1 rounded-full border border-gray-600"></span>
+                </div>
+                
+                <h3 class="text-lg font-semibold text-white border-b border-gray-700 pb-2">Generated Answer</h3>
+                <div id="answerText" class="text-gray-300 leading-relaxed whitespace-pre-wrap"></div>
+            </div>
+
+            <!-- Citations -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold text-white px-2">Retrieved Context (Citations)</h3>
+                <div id="citationsList" class="grid grid-cols-1 gap-4">
+                    <!-- Citations injected here by JS -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const query = document.getElementById('queryInput').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const loadingState = document.getElementById('loadingState');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const citationsList = document.getElementById('citationsList');
+            
+            // UI Reset
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            resultsContainer.classList.add('hidden');
+            loadingState.classList.remove('hidden');
+            citationsList.innerHTML = '';
+
+            try {
+                // Execute API Call
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: query, model: 'llama3' })
+                });
+
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                const data = await response.json();
+
+                // Populate Data
+                document.getElementById('intentBadge').innerText = `Intent: ${data.intent}`;
+                document.getElementById('latencyBadge').innerText = `Latency: ${(data.latency_ms / 1000).toFixed(2)}s`;
+                document.getElementById('answerText').innerText = data.answer;
+
+                // Render Citations
+                if (data.citations && data.citations.length > 0) {
+                    data.citations.forEach(cit => {
+                        const card = document.createElement('div');
+                        card.className = "bg-gray-800 p-5 rounded-lg border border-gray-700 flex flex-col gap-2";
+                        card.innerHTML = `
+                            <div class="flex justify-between items-start">
+                                <span class="text-sm text-brand font-medium">${cit.book}</span>
+                                <span class="text-xs text-gray-500 font-mono">[${cit.verse_id}]</span>
+                            </div>
+                            <p class="text-white text-right font-urdu text-lg mt-2">${cit.text_original}</p>
+                            ${cit.text_roman ? `<p class="text-gray-400 text-sm italic">${cit.text_roman}</p>` : ''}
+                        `;
+                        citationsList.appendChild(card);
+                    });
+                } else {
+                    citationsList.innerHTML = `<p class="text-gray-500 italic px-2">No direct citations were used for this response.</p>`;
+                }
+
+                // Show Results
+                loadingState.classList.add('hidden');
+                resultsContainer.classList.remove('hidden');
+
+            } catch (error) {
+                alert("Pipeline execution failed: " + error.message);
+                loadingState.classList.add('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        });
+    </script>
+</body>
+</html>

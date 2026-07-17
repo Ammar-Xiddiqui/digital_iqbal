@@ -1,7 +1,10 @@
 from fastapi import FastAPI, HTTPException, status
+from fastapi.responses import HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Optional
 import time
+from pathlib import Path
 
 # Import your working pipeline modules
 from src.graph.graph import query_router
@@ -35,6 +38,15 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# ADDED: CORS Middleware to allow the frontend to communicate with the API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Global holder for components to optimize cold-starts
 retriever = None
 
@@ -44,6 +56,15 @@ def startup_event():
     print("Pre-loading Hybrid Retriever Indices into RAM...")
     retriever = HybridRetriever()
     print("API Layer Initialization Complete.")
+
+# ADDED: Serve the Single-Page Frontend
+@app.get("/", response_class=HTMLResponse)
+async def serve_frontend():
+    """Serves the frontend UI directly from the backend server."""
+    html_file = Path("src/frontend/index.html")
+    if not html_file.exists():
+        return "<h1>Frontend not found. Please create src/frontend/index.html</h1>"
+    return html_file.read_text(encoding="utf-8")
 
 @app.get("/health", status_code=status.HTTP_200_OK)
 def health_check():
