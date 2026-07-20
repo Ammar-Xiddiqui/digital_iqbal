@@ -1,52 +1,33 @@
 import os
-import hashlib
+from PIL import Image
+import imagehash
 
-# ====== CHANGE THIS TO YOUR FOLDER ======
-folder_path = "/home/ammar/Downloads/rvs_moto"
-# ========================================
+folder = os.path.expanduser("~/Downloads/rvs_moto")
 
-# Supported image extensions
-image_extensions = {".jpg", ".jpeg", ".png", ".bmp", ".gif", ".tiff", ".webp"}
+extensions = (".jpg", ".jpeg", ".png", ".bmp", ".webp", ".tiff")
 
-def file_hash(filepath):
-    """Return SHA-256 hash of a file."""
-    hasher = hashlib.sha256()
-    with open(filepath, "rb") as f:
-        while True:
-            chunk = f.read(8192)
-            if not chunk:
-                break
-            hasher.update(chunk)
-    return hasher.hexdigest()
-
-seen_hashes = {}
+seen = {}
 deleted = 0
-kept = 0
 
-for filename in os.listdir(folder_path):
-    filepath = os.path.join(folder_path, filename)
-
-    if not os.path.isfile(filepath):
+for filename in os.listdir(folder):
+    if not filename.lower().endswith(extensions):
         continue
 
-    ext = os.path.splitext(filename)[1].lower()
-    if ext not in image_extensions:
-        continue
+    path = os.path.join(folder, filename)
 
     try:
-        h = file_hash(filepath)
+        img = Image.open(path)
+        h = imagehash.phash(img)   # perceptual hash
 
-        if h in seen_hashes:
+        if h in seen:
             print(f"Deleting duplicate: {filename}")
-            os.remove(filepath)
+            os.remove(path)
             deleted += 1
         else:
-            seen_hashes[h] = filename
-            kept += 1
+            seen[h] = filename
 
     except Exception as e:
-        print(f"Error processing {filename}: {e}")
+        print(f"Skipping {filename}: {e}")
 
-print("\nDone!")
-print(f"Images kept: {kept}")
-print(f"Duplicates deleted: {deleted}")
+print(f"\nDeleted {deleted} duplicates.")
+print(f"Remaining unique images: {len(seen)}")
